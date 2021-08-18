@@ -1,4 +1,4 @@
-def pandas_rsi(df: pd.DataFrame, window_length: int = 14, output: str = None):
+def pandas_rsi(df: pd.DataFrame, window_length: int = 14, output: str = None, price: str = 'Close'):
     """
     An implementation of Wells Wilder's RSI calculation as outlined in
     his 1978 book "New Concepts in Technical Trading Systems" which makes
@@ -10,14 +10,15 @@ def pandas_rsi(df: pd.DataFrame, window_length: int = 14, output: str = None):
         df: pandas.DataFrame - a Pandas Dataframe object
         window_length: int - the period over which the RSI is calculated. Default is 14
         output: str or None - optional output path to save data as CSV
+        price: str - the column name from which the RSI values are calcuated. Default is 'Close'
 
     Returns:
         DataFrame object with columns as such, where xxx denotes an inconsequential
         name of the provided first column:
             ['xxx', 'diff', 'gain', 'loss', 'avg_gain', 'avg_loss', 'rs', 'rsi']
     """
-    # Calculate Price Differences
-    df['diff'] = df.diff(1)
+    # Calculate Price Differences using the column specified as price.
+    df['diff'] = df[close].diff(1)
 
     # Calculate Avg. Gains/Losses
     df['gain'] = df['diff'].clip(lower=0).round(2)
