@@ -42,7 +42,7 @@ def wilders_rsi(data: typing.List[float or int], window_length: int,
             continue
 
         # Calculate price difference with previous period
-        difference = do_round(wilder_data[i] - wilder_data[i - 1])
+        difference = do_round(data[i] - data[i - 1])
 
         # Record positive differences as gains, negative as losses
         if difference > 0:
